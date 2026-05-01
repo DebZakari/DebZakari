@@ -1,6 +1,4 @@
-## Dave Zachary Macarayo
-
-Web Developer · Computer Engineering Graduate · AI Integration
+<img src="https://dz-macarayo.vercel.app/api/readme-banner" width="100%" alt="Dave Zachary Macarayo — Web Developer & AI Engineer" />
 
 ---
 
