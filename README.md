@@ -20,8 +20,6 @@ $ profile --verbose
 
 #### Languages
 
-<div align="center">
-
 [![Python](https://img.shields.io/badge/Python-141414?style=flat-square&logo=python&logoColor=f0f0f0)](https://python.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-141414?style=flat-square&logo=typescript&logoColor=f0f0f0)](https://typescriptlang.org)
 [![JavaScript](https://img.shields.io/badge/JavaScript-141414?style=flat-square&logo=javascript&logoColor=f0f0f0)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -29,11 +27,7 @@ $ profile --verbose
 [![Java](https://img.shields.io/badge/Java-141414?style=flat-square&logo=openjdk&logoColor=f0f0f0)](https://dev.java)
 [![C](https://img.shields.io/badge/C-141414?style=flat-square&logo=c&logoColor=f0f0f0)](https://en.cppreference.com/w/c)
 
-</div>
-
 #### Web Development
-
-<div align="center">
 
 [![Next.js](https://img.shields.io/badge/Next.js-141414?style=flat-square&logo=nextdotjs&logoColor=f0f0f0)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-141414?style=flat-square&logo=react&logoColor=f0f0f0)](https://react.dev)
@@ -44,11 +38,7 @@ $ profile --verbose
 [![CodeIgniter](https://img.shields.io/badge/CodeIgniter-141414?style=flat-square&logo=codeigniter&logoColor=f0f0f0)](https://codeigniter.com)
 [![FastAPI](https://img.shields.io/badge/FastAPI-141414?style=flat-square&logo=fastapi&logoColor=f0f0f0)](https://fastapi.tiangolo.com)
 
-</div>
-
 #### AI & ML
-
-<div align="center">
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-141414?style=flat-square&logo=pytorch&logoColor=f0f0f0)](https://pytorch.org)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-141414?style=flat-square&logo=tensorflow&logoColor=f0f0f0)](https://tensorflow.org)
@@ -57,11 +47,7 @@ $ profile --verbose
 [![Hugging Face](https://img.shields.io/badge/Hugging_Face-141414?style=flat-square&logo=huggingface&logoColor=f0f0f0)](https://huggingface.co)
 [![ComfyUI](https://img.shields.io/badge/ComfyUI-141414?style=flat-square&logo=comfyui&logoColor=f0f0f0)](https://github.com/comfyanonymous/ComfyUI)
 
-</div>
-
 #### Databases & Infrastructure
-
-<div align="center">
 
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-141414?style=flat-square&logo=postgresql&logoColor=f0f0f0)](https://postgresql.org)
 [![MySQL](https://img.shields.io/badge/MySQL-141414?style=flat-square&logo=mysql&logoColor=f0f0f0)](https://mysql.com)
@@ -71,17 +57,11 @@ $ profile --verbose
 [![Docker](https://img.shields.io/badge/Docker-141414?style=flat-square&logo=docker&logoColor=f0f0f0)](https://docker.com)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-141414?style=flat-square&logo=cloudflare&logoColor=f0f0f0)](https://cloudflare.com)
 
-</div>
-
 #### Hardware & IoT
-
-<div align="center">
 
 [![Arduino](https://img.shields.io/badge/Arduino-141414?style=flat-square&logo=arduino&logoColor=f0f0f0)](https://arduino.cc)
 [![ESP32](https://img.shields.io/badge/ESP32-141414?style=flat-square&logo=espressif&logoColor=f0f0f0)](https://espressif.com)
 [![Raspberry Pi](https://img.shields.io/badge/Raspberry_Pi-141414?style=flat-square&logo=raspberrypi&logoColor=f0f0f0)](https://raspberrypi.com)
-
-</div>
 
 ---
 
