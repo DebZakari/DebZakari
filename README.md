@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://dz-macarayo.vercel.app/api/readme-banner" width="100%" alt="Dave Zachary Macarayo — Web Developer & AI Engineer" />
+<a href="https://dz-macarayo.vercel.app"><img src="https://dz-macarayo.vercel.app/api/readme-banner" width="100%" alt="Dave Zachary Macarayo — Web Developer & AI Engineer" /></a>
 </div>
 
 ---
