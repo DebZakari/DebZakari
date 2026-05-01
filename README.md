@@ -63,11 +63,7 @@ $ profile --verbose
 <table>
 <tr>
 <td valign="top">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=DebZakari&show_icons=true&hide_border=false&bg_color=080808&border_color=262626&title_color=f0f0f0&text_color=aaaaaa&icon_color=f0f0f0&rank_icon=github" />
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api?username=DebZakari&show_icons=true&hide_border=false&bg_color=fafafa&border_color=e0e0e0&title_color=0a0a0a&text_color=555555&icon_color=0a0a0a&rank_icon=github" />
-  <img src="https://github-readme-stats.vercel.app/api?username=DebZakari&show_icons=true&hide_border=false&bg_color=080808&border_color=262626&title_color=f0f0f0&text_color=aaaaaa&icon_color=f0f0f0&rank_icon=github" height="155" alt="GitHub stats" />
-</picture>
+<img src="https://dz-macarayo.vercel.app/api/readme-stats" height="160" alt="GitHub stats" />
 </td>
 <td valign="top">
 <picture>
