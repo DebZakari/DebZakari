@@ -71,7 +71,7 @@ $ profile --verbose
 
 <img src="https://dz-macarayo.vercel.app/api/readme-stats" alt="GitHub stats" />
 
-<br/><br/>
+<br/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=DebZakari&background=080808&border=262626&ring=f0f0f0&fire=aaaaaa&currStreakNum=f0f0f0&sideNums=aaaaaa&currStreakLabel=aaaaaa&sideLabels=444444&dates=444444" />
