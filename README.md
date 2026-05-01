@@ -7,8 +7,8 @@
 ```
 $ profile --verbose
 {
-  "role":     "Web Developer & Computer Engineering Graduate",
-  "focus":    ["LLMs", "RAG", "SOTA TTS", "Biometrics", "Computer Vision"],
+  "role":     "Web Developer & AI Engineer",
+  "focus":    ["LLMs", "RAG", "Computer Vision", "SOTA TTS", "Biometrics"],
   "location": "Philippines",
   "status":   "open to opportunities"
 }
