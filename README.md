@@ -1,5 +1,5 @@
 <div align="center">
-<a href="https://dz-macarayo.vercel.app"><img src="https://dz-macarayo.vercel.app/api/readme-banner" width="100%" alt="Dave Zachary Macarayo — Web Developer & AI Engineer" /></a>
+<a href="https://debzakari.vercel.app"><img src="https://debzakari.vercel.app/api/readme-banner" width="100%" alt="Dave Zachary Macarayo — Web Developer & AI Engineer" /></a>
 </div>
 
 ---
@@ -69,7 +69,7 @@ $ profile --verbose
 
 <div align="center">
 
-<img src="https://dz-macarayo.vercel.app/api/readme-stats" alt="GitHub stats" />
+<img src="https://debzakari.vercel.app/api/readme-stats" alt="GitHub stats" />
 
 <br/>
 
