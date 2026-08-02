@@ -125,7 +125,8 @@ def build_wide(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="7" fill="{c["ink"]}"/>')
-    p.append(mark(818, 62, 46, c["ink"]))
+    # Centred over the wordmark, which is the widest line in the hub block.
+    p.append(mark(818 + (BOLD.width(HUB, 28, -0.01) - 46) / 2, 62, 46, c["ink"]))
     p.append(txt(BOLD, HUB, 28, 818, 133, c["ink"], tracking=-0.01, canvas_w=W))
     p.append(txt(REG, HUB_SUB, 13, 820, 157, c["muted"], canvas_w=W))
     p.append(txt(REG, HUB_SUB2, 12, 820, 176, c["muted"], canvas_w=W))
