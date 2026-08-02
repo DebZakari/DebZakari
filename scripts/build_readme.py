@@ -148,7 +148,11 @@ LINKS = {
     "Cloudflare Tunnel": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/",
     "Turnstile": "https://www.cloudflare.com/products/turnstile/",
     "systemd": "https://systemd.io",
+    "GHCR": "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry",
+    "Docker Buildx": "https://github.com/docker/buildx",
     # Tooling
+    "GitHub Actions": "https://github.com/features/actions",
+    "Dependabot": "https://docs.github.com/en/code-security/dependabot",
     "Turborepo": "https://turborepo.com",
     "pnpm": "https://pnpm.io",
     "Playwright": "https://playwright.dev",
@@ -174,7 +178,8 @@ CORE = [
                        "Hugging Face", "Ollama"]),
     ("Data", "data", ["PostgreSQL", "pgvector", "Neo4j", "Redis", "MySQL", "Drizzle ORM"]),
     ("Cloud", "cloud", ["Oracle Cloud", "AWS", "Cloudflare", "Vercel", "Docker", "Caddy"]),
-    ("Tooling", "tooling", ["Turborepo", "pnpm", "Playwright", "Vitest", "Sentry", "Infisical"]),
+    ("Tooling", "tooling", ["GitHub Actions", "Turborepo", "pnpm", "Playwright", "Vitest",
+                            "Sentry", "Infisical"]),
 ]
 
 FULL = [
@@ -190,10 +195,10 @@ FULL = [
     ("Vision & biometrics", "ai", ["YOLO", "U-Net", "ArcFace", "RetinaFace"]),
     ("Data & storage", "data", ["Neon", "SQLite", "ltree", "Cloudflare R2", "MinIO", "Drizzle Kit"]),
     ("Cloud & infrastructure", "cloud", ["OCI Ampere A1", "AWS S3", "AWS KMS", "AWS Rekognition",
-                                         "Cloudflare Tunnel", "Turnstile", "systemd",
-                                         "Blue-green deploys"]),
-    ("Quality & safety", "tooling", ["ESLint", "pytest", "Ruff", "mypy", "Sightengine",
-                                     "Arachnid Shield"]),
+                                         "Cloudflare Tunnel", "Turnstile", "systemd", "GHCR",
+                                         "Docker Buildx", "Blue-green deploys"]),
+    ("Quality & safety", "tooling", ["ESLint", "pytest", "Ruff", "mypy", "Dependabot",
+                                     "Sightengine", "Arachnid Shield"]),
     ("Hardware", "tooling", ["Arduino", "ESP32", "Raspberry Pi", "Coral Edge TPU"]),
 ]
 
