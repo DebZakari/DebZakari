@@ -43,6 +43,28 @@ LINES = [
     ("TOOLING", "tooling", ["Docker", "Turborepo", "Playwright"], ["Docker", "Turborepo"]),
 ]
 
+# The NovelVerse open-book mark, lifted from novelverse-web's brand directory
+# (assets/brand/novelverse-mark.svg holds the original). Drawn in ink rather than
+# the brand violet: the interchange belongs to all six lines, and violet is
+# already spoken for by the AI & ML line.
+MARK_VIEWBOX = 1254
+MARK = [
+    "M624 125C615 128 610 151 603 171C588 215 558 249 513 267L482 279C473 283 473 296 484 "
+    "304C526 316 559 340 584 371C604 397 610 419 615 442C617 451 633 452 639 441C647 413 661 "
+    "383 680 358C703 333 733 315 769 304C782 300 779 281 768 277C722 264 686 237 666 201C651 "
+    "175 644 151 639 133C636 123 628 124 624 125Z",
+    "M218 358C350 358 470 409 566 497C593 526 608 558 608 593V1059C608 1065 605 1067 601 "
+    "1063C494 959 380 926 216 923C208 923 203 917 203 909V373C203 364 209 358 218 358Z",
+    "M1035 358C905 358 784 409 690 495C662 527 646 560 646 588V1060C646 1065 649 1067 653 "
+    "1063C762 959 876 927 1035 923C1044 923 1050 916 1050 907V373C1050 364 1044 358 1035 358Z",
+    "M139 443H154C162 443 167 447 167 455V940C167 953 177 962 190 962H245C355 964 468 986 545 "
+    "1047C547 1049 545 1052 542 1051C454 1033 382 1024 303 1024H136C127 1024 121 1018 121 "
+    "1009V458C121 449 129 443 139 443Z",
+    "M1092 444H1116C1125 444 1132 449 1132 458V1009C1132 1018 1127 1024 1118 1024H948C878 1024 "
+    "799 1034 712 1050C709 1051 706 1050 708 1048C781 987 895 964 1003 962H1062C1075 962 1085 "
+    "953 1085 940V457C1085 449 1088 444 1092 444Z",
+]
+
 HUB = "NOVELVERSE"
 HUB_SUB = "Multi-service AI platform"
 HUB_SUB2 = "Next.js  ·  NestJS  ·  FastAPI"
@@ -58,6 +80,16 @@ def txt(face, s, size, x, y, fill, tracking=0.0, anchor="start", canvas_w=None):
             BLEED.append((s, round(left, 1), round(left + w, 1), canvas_w))
     d = face.path(s, size, x, y, tracking=tracking, anchor=anchor)
     return f'<path d="{d}" fill="{fill}"/>' if d else ""
+
+
+def mark(x, y, size, fill):
+    """The NovelVerse mark, scaled from its 1254 unit box to `size` px at (x, y)."""
+    s = size / MARK_VIEWBOX
+    # The second through fifth paths carry the original's translate/scale.
+    inner = f'<g transform="translate(0 14) scale(1 .98)">' \
+            + "".join(f'<path d="{d}"/>' for d in MARK[1:]) + "</g>"
+    return (f'<g transform="translate({x} {y}) scale({s:.5f})" fill="{fill}">'
+            f'<path d="{MARK[0]}"/>{inner}</g>')
 
 
 def route(x0, y0, x_kink, y1, x_end):
@@ -93,6 +125,7 @@ def build_wide(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="7" fill="{c["ink"]}"/>')
+    p.append(mark(818, 62, 46, c["ink"]))
     p.append(txt(BOLD, HUB, 28, 818, 133, c["ink"], tracking=-0.01, canvas_w=W))
     p.append(txt(REG, HUB_SUB, 13, 820, 157, c["muted"], canvas_w=W))
     p.append(txt(REG, HUB_SUB2, 12, 820, 176, c["muted"], canvas_w=W))
@@ -102,7 +135,7 @@ def build_wide(theme):
 
 def build_narrow(theme):
     c = THEMES[theme]
-    W, H = 440, 344
+    W, H = 440, 382
     row_y = [32 + i * 42 for i in range(6)]
     hub_y = [107 + i * 12 for i in range(6)]
     # Second label must clear the kink: widest is "Oracle Cloud" at ~66px.
@@ -126,10 +159,12 @@ def build_narrow(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="6" fill="{c["ink"]}"/>')
-    p.append(txt(BOLD, HUB, 23, 220, 302, c["ink"], tracking=-0.01, anchor="middle",
+    # Clear of the TOOLING station labels, which sit at row_y[5] + 17.
+    p.append(mark(202, 274, 36, c["ink"]))
+    p.append(txt(BOLD, HUB, 23, 220, 340, c["ink"], tracking=-0.01, anchor="middle",
                  canvas_w=W))
-    p.append(txt(REG, HUB_SUB, 11.5, 220, 322, c["muted"], anchor="middle", canvas_w=W))
-    p.append(txt(REG, HUB_SUB2, 10.5, 220, 338, c["muted"], anchor="middle", canvas_w=W))
+    p.append(txt(REG, HUB_SUB, 11.5, 220, 360, c["muted"], anchor="middle", canvas_w=W))
+    p.append(txt(REG, HUB_SUB2, 10.5, 220, 376, c["muted"], anchor="middle", canvas_w=W))
     p.append("</svg>")
     return "\n".join(x for x in p if x)
 

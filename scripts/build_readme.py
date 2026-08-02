@@ -35,17 +35,137 @@ THEME = {
 
 
 def badge(text, colour, style="flat-square"):
-    return f"https://img.shields.io/badge/{quote(text, safe='')}-{colour}?style={style}"
+    # Shields.io splits the path on "-" and reads "_" as a space, so both have to
+    # be doubled. Without this, "U-Net" renders as two badges reading "U" "Net".
+    esc = text.replace("_", "__").replace("-", "--")
+    return f"https://img.shields.io/badge/{quote(esc, safe='')}-{colour}?style={style}"
 
 
 def bullets(items, key):
-    return " ".join(f'<img alt="{i}" src="{badge(i, BULLET[key])}">' for i in items)
+    out = []
+    for i in items:
+        img = f'<img alt="{i}" src="{badge(i, BULLET[key])}">'
+        # A few entries are techniques rather than products and have nowhere to
+        # point; those stay unlinked rather than inventing a destination.
+        out.append(f"[{img}]({LINKS[i]})" if LINKS.get(i) else img)
+    return " ".join(out)
 
 
 def line(name, key, items):
     head = f'<img alt="{name} line" src="{badge(name.upper(), BULLET[key], "for-the-badge")}">'
     return f"{head}\n\n{bullets(items, key)}"
 
+
+# Every badge that names a product links to that product. Checked for HTTP 200
+# by scripts/check_links.py; a dead link on a hiring page is worse than none.
+LINKS = {
+    # Languages
+    "TypeScript": "https://www.typescriptlang.org",
+    "Python": "https://www.python.org",
+    "JavaScript": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    "PHP": "https://www.php.net",
+    "Java": "https://dev.java",
+    "C": "https://en.cppreference.com/w/c",
+    # Web
+    "Next.js": "https://nextjs.org",
+    "React": "https://react.dev",
+    "NestJS": "https://nestjs.com",
+    "FastAPI": "https://fastapi.tiangolo.com",
+    "Laravel": "https://laravel.com",
+    "Tailwind CSS": "https://tailwindcss.com",
+    "Node.js": "https://nodejs.org",
+    "Better Auth": "https://www.better-auth.com",
+    "Socket.IO": "https://socket.io",
+    "Yjs": "https://yjs.dev",
+    "Hocuspocus": "https://tiptap.dev/docs/hocuspocus/getting-started/overview",
+    "Tiptap": "https://tiptap.dev",
+    "TanStack Query": "https://tanstack.com/query",
+    "Zustand": "https://zustand.docs.pmnd.rs",
+    "shadcn/ui": "https://ui.shadcn.com",
+    "Radix UI": "https://www.radix-ui.com",
+    "BullMQ": "https://bullmq.io",
+    "Fastify": "https://fastify.dev",
+    "Serwist": "https://serwist.pages.dev",
+    "Resend": "https://resend.com",
+    "Bootstrap": "https://getbootstrap.com",
+    "CodeIgniter": "https://codeigniter.com",
+    "Alpine.js": "https://alpinejs.dev",
+    # AI & ML
+    "LangGraph": "https://langchain-ai.github.io/langgraph/",
+    "LangChain": "https://www.langchain.com",
+    "PyTorch": "https://pytorch.org",
+    "TensorFlow": "https://www.tensorflow.org",
+    "OpenCV": "https://opencv.org",
+    "Hugging Face": "https://huggingface.co",
+    "Ollama": "https://ollama.com",
+    "Anthropic": "https://www.anthropic.com",
+    "OpenAI": "https://openai.com",
+    "Google Gemini": "https://ai.google.dev",
+    "Groq": "https://groq.com",
+    "Cerebras": "https://www.cerebras.ai",
+    "Mistral": "https://mistral.ai",
+    "OpenRouter": "https://openrouter.ai",
+    "NVIDIA NIM": "https://build.nvidia.com",
+    "Workers AI": "https://developers.cloudflare.com/workers-ai/",
+    "Voyage AI": "https://www.voyageai.com",
+    "Cohere": "https://cohere.com",
+    "Jina AI": "https://jina.ai",
+    "ZeroEntropy": "https://www.zeroentropy.dev",
+    "tiktoken": "https://github.com/openai/tiktoken",
+    "HyDE": "https://arxiv.org/abs/2212.10496",
+    "ElevenLabs": "https://elevenlabs.io",
+    "Cartesia": "https://cartesia.ai",
+    "Fish Audio": "https://fish.audio",
+    "Speechmatics": "https://www.speechmatics.com",
+    "YOLO": "https://docs.ultralytics.com",
+    "U-Net": "https://arxiv.org/abs/1505.04597",
+    "ArcFace": "https://arxiv.org/abs/1801.07698",
+    "RetinaFace": "https://arxiv.org/abs/1905.00641",
+    # Data
+    "PostgreSQL": "https://www.postgresql.org",
+    "pgvector": "https://github.com/pgvector/pgvector",
+    "Neo4j": "https://neo4j.com",
+    "Redis": "https://redis.io",
+    "MySQL": "https://www.mysql.com",
+    "Drizzle ORM": "https://orm.drizzle.team",
+    "Neon": "https://neon.com",
+    "SQLite": "https://www.sqlite.org",
+    "ltree": "https://www.postgresql.org/docs/current/ltree.html",
+    "Cloudflare R2": "https://developers.cloudflare.com/r2/",
+    "MinIO": "https://www.min.io",
+    "Drizzle Kit": "https://orm.drizzle.team/docs/kit-overview",
+    # Cloud
+    "Oracle Cloud": "https://www.oracle.com/cloud/",
+    "AWS": "https://aws.amazon.com",
+    "Cloudflare": "https://www.cloudflare.com",
+    "Vercel": "https://vercel.com",
+    "Docker": "https://www.docker.com",
+    "Caddy": "https://caddyserver.com",
+    "OCI Ampere A1": "https://www.oracle.com/cloud/compute/arm/",
+    "AWS S3": "https://aws.amazon.com/s3/",
+    "AWS KMS": "https://aws.amazon.com/kms/",
+    "AWS Rekognition": "https://aws.amazon.com/rekognition/",
+    "Cloudflare Tunnel": "https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/",
+    "Turnstile": "https://www.cloudflare.com/products/turnstile/",
+    "systemd": "https://systemd.io",
+    # Tooling
+    "Turborepo": "https://turborepo.com",
+    "pnpm": "https://pnpm.io",
+    "Playwright": "https://playwright.dev",
+    "Vitest": "https://vitest.dev",
+    "Sentry": "https://sentry.io",
+    "Infisical": "https://infisical.com",
+    "ESLint": "https://eslint.org",
+    "pytest": "https://docs.pytest.org",
+    "Ruff": "https://docs.astral.sh/ruff/",
+    "mypy": "https://mypy-lang.org",
+    "Sightengine": "https://sightengine.com",
+    "Arachnid Shield": "https://projectarachnid.ca/en/",
+    "Arduino": "https://www.arduino.cc",
+    "ESP32": "https://www.espressif.com/en/products/socs/esp32",
+    "Raspberry Pi": "https://www.raspberrypi.com",
+    "Coral Edge TPU": "https://coral.ai",
+}
 
 CORE = [
     ("Languages", "languages", ["TypeScript", "Python", "JavaScript", "PHP", "Java", "C"]),
@@ -60,7 +180,8 @@ CORE = [
 FULL = [
     ("Web & realtime", "web", ["Better Auth", "Socket.IO", "Yjs", "Hocuspocus", "Tiptap",
                                "TanStack Query", "Zustand", "shadcn/ui", "Radix UI", "BullMQ",
-                               "Fastify", "Serwist", "Resend", "Bootstrap", "CodeIgniter"]),
+                               "Fastify", "Serwist", "Resend", "Alpine.js", "Bootstrap",
+                               "CodeIgniter"]),
     ("Model providers", "ai", ["Anthropic", "OpenAI", "Google Gemini", "Groq", "Cerebras",
                                "Mistral", "OpenRouter", "NVIDIA NIM", "Workers AI"]),
     ("Retrieval & ranking", "ai", ["Voyage AI", "Cohere", "Jina AI", "ZeroEntropy", "tiktoken",
@@ -73,7 +194,7 @@ FULL = [
                                          "Blue-green deploys"]),
     ("Quality & safety", "tooling", ["ESLint", "pytest", "Ruff", "mypy", "Sightengine",
                                      "Arachnid Shield"]),
-    ("Hardware", "tooling", ["Arduino", "ESP32", "Raspberry Pi"]),
+    ("Hardware", "tooling", ["Arduino", "ESP32", "Raspberry Pi", "Coral Edge TPU"]),
 ]
 
 
@@ -199,7 +320,9 @@ A(" ".join([
     f'[<img alt="Portfolio" src="{badge("Portfolio", NEUTRAL, "for-the-badge")}">]({SITE})',
 ]))
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w") as f:
-    f.write("\n".join(doc).rstrip() + "\n")
-print(f"README.md  {os.path.getsize(OUT) / 1024:.1f} KB  ({len(doc)} blocks)")
+if __name__ == "__main__":
+    # Guarded so check_links.py can import LINKS without rewriting the README.
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w") as f:
+        f.write("\n".join(doc).rstrip() + "\n")
+    print(f"README.md  {os.path.getsize(OUT) / 1024:.1f} KB  ({len(doc)} blocks)")

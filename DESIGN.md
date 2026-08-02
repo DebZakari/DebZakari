@@ -44,6 +44,7 @@ a stack:
 | Station tick | A named technology on that layer |
 | 45-degree kink | The only permitted diagonal; lines run orthogonal otherwise |
 | Circle-and-bar interchange | NovelVerse, where all six layers meet in one real system |
+| Interchange mark | NovelVerse's own open-book logo, in ink |
 
 The interchange is the argument. Six lines terminating nowhere would be a list;
 six lines converging on one shipped platform is a claim about the work.
@@ -111,7 +112,7 @@ GitHub allows no CSS, so this is the entire responsive mechanism available.
 
 | | Wide | Narrow |
 |---|---|---|
-| Canvas | 1000 x 300 | 440 x 344 |
+| Canvas | 1000 x 272 | 440 x 382 |
 | Row pitch | 44px | 42px |
 | Stations per line | 3 | 2 |
 | Station label | Above the line, `y - 10` | Below the line, `y + 17` |
@@ -129,17 +130,27 @@ narrow label ("Oracle Cloud", 63.4px) is 20.3px.
 2. **Every station is a factual claim.** See the interchange note above.
 3. **Transparent ground.** Every generated SVG omits a background so it sits on
    GitHub's own canvas in light, dark, and dimmed.
-4. **No logos.** Checked against the simple-icons catalog: Oracle Cloud, AWS,
-   OpenAI, Playwright, Groq, Cohere, Jina, Infisical, Tiptap, Zustand, Voyage,
-   Cartesia and Speechmatics have no entries. A logo set that omits the two the
-   stack most needs to show is worse than none, so the page uses none.
-5. **Text must be measured.** `build_map.py` carries a `BLEED` guard that reports
+4. **No vendor logos on badges.** Checked against the simple-icons catalog:
+   Oracle Cloud, AWS, OpenAI, Playwright, Groq, Cohere, Jina, Infisical, Tiptap,
+   Zustand, Voyage, Cartesia and Speechmatics have no entries. A logo set that
+   omits the two the stack most needs to show is worse than none, so the badges
+   carry none. The single exception is the NovelVerse mark at the interchange,
+   which is Dave's own work rather than a third-party brand, and is drawn in ink
+   for the same reason the interchange is: it belongs to all six lines, and the
+   brand violet is already spoken for by AI & ML.
+5. **Badge text must escape `-` and `_`.** Shields.io splits its path on `-` and
+   reads `_` as a space. Unescaped, "U-Net" renders as two badges reading "U"
+   and "Net". `badge()` doubles both.
+6. **Every badge that names a product links to it**, verified by
+   `scripts/check_links.py`. Techniques with no home page (RRF hybrid search,
+   blue-green deploys) stay unlinked rather than pointing somewhere invented.
+7. **Text must be measured.** `build_map.py` carries a `BLEED` guard that reports
    any string crossing the canvas edge. It exists because a hub caption silently
    clipped once.
-6. **Missing glyphs raise.** `Face.glyphs()` throws rather than skipping. A
+8. **Missing glyphs raise.** `Face.glyphs()` throws rather than skipping. A
    subset that dropped the space character once collapsed every label in every
    asset to `DAVEZACHARYMACARAYO`.
-7. **No em dashes or en dashes in prose.** They read as machine-written. Use a
+9. **No em dashes or en dashes in prose.** They read as machine-written. Use a
    colon, a full stop, or restructure the sentence.
 
 ## The language bar
@@ -160,6 +171,7 @@ pip install fonttools
 python build_map.py      # transit diagram, 4 variants
 python build_langs.py    # language panel, 4 variants (needs gh auth)
 python build_readme.py   # README.md
+python check_links.py    # every badge destination must answer 2xx or 3xx
 ```
 
 `.github/workflows/refresh-stats.yml` reruns `build_langs.py` daily at 04:17 UTC
