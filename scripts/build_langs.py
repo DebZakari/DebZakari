@@ -112,28 +112,21 @@ def panel(langs, repo_count, theme, wide=True):
 
     total = sum(pct for _, pct in langs) or 100.0
     usable = W - gap * (len(langs) - 1)
-    x = float(pad)
     r = bar_h / 2
-    for i, (name, pct) in enumerate(langs):
+
+    # One rounded mask over the whole run. Every segment is then a plain rect of
+    # identical height, so no segment can render shorter than its neighbours;
+    # hand-rolling the rounded end caps per segment is what broke that before.
+    p.append(f'<defs><clipPath id="bar"><rect x="{pad}" y="{bar_y}" '
+             f'width="{W - pad}" height="{bar_h}" rx="{r}"/></clipPath></defs>')
+    p.append('<g clip-path="url(#bar)">')
+    x = float(pad)
+    for name, pct in langs:
         w = max(usable * pct / total, 2.0)
-        fill = LINGUIST.get(name, OTHER)
-        # Round only the outer ends so the run reads as one bar.
-        if i == 0 or i == len(langs) - 1:
-            left = r if i == 0 else 0
-            right = r if i == len(langs) - 1 else 0
-            p.append(f'<path d="M {x + left} {bar_y} H {x + w - right} '
-                     f'{"" if not right else f"A {r} {r} 0 0 1 {x + w} {bar_y + r}"} '
-                     f'V {bar_y + bar_h - r} '
-                     f'{"" if not right else f"A {r} {r} 0 0 1 {x + w - right} {bar_y + bar_h}"} '
-                     f'H {x + left} '
-                     f'{"" if not left else f"A {r} {r} 0 0 1 {x} {bar_y + bar_h - r}"} '
-                     f'V {bar_y + r} '
-                     f'{"" if not left else f"A {r} {r} 0 0 1 {x + left} {bar_y}"} Z" '
-                     f'fill="{fill}"/>')
-        else:
-            p.append(f'<rect x="{x:.2f}" y="{bar_y}" width="{w:.2f}" height="{bar_h}" '
-                     f'fill="{fill}"/>')
+        p.append(f'<rect x="{x:.2f}" y="{bar_y}" width="{w:.2f}" height="{bar_h}" '
+                 f'fill="{LINGUIST.get(name, OTHER)}"/>')
         x += w + gap
+    p.append('</g>')
 
     col_w = W / cols
     for i, (name, pct) in enumerate(langs):

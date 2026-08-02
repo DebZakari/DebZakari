@@ -1,4 +1,4 @@
-"""Interchange — the stack drawn as a transit diagram.
+"""Interchange: the stack drawn as a transit diagram.
 
 Six lines (stack layers) converge on one interchange (NovelVerse).
 Emits four SVGs: wide/narrow x dark/light. Backgrounds stay transparent so
@@ -12,7 +12,6 @@ OUT = os.path.join(os.path.dirname(HERE), "assets")
 os.makedirs(OUT, exist_ok=True)
 
 REG = Face(os.path.join(HERE, "fonts", "Overpass-400.ttf"))
-SEMI = Face(os.path.join(HERE, "fonts", "Overpass-600.ttf"))
 BOLD = Face(os.path.join(HERE, "fonts", "Overpass-700.ttf"))
 
 # GitHub Primer's accessible hues: every line clears 4.5:1 on its own ground.
@@ -29,18 +28,21 @@ THEMES = {
     },
 }
 
+# Every station here has to be something NovelVerse actually runs, because every
+# line terminates at the NovelVerse interchange. Verified against the manifests:
+# nv-web/package.json, nv-ai/requirements.txt, and the GitHub language stats.
+# PHP and PyTorch are real skills but belong to other work, so they live in the
+# README's Stack section instead, where nothing claims they ship here.
 # (label, key, wide stations, narrow stations)
 LINES = [
-    ("LANGUAGES", "languages", ["TypeScript", "Python", "PHP"], ["TypeScript", "Python"]),
+    ("LANGUAGES", "languages", ["TypeScript", "Python", "JavaScript"], ["TypeScript", "Python"]),
     ("WEB", "web", ["Next.js", "React", "NestJS"], ["Next.js", "NestJS"]),
-    ("AI & ML", "ai", ["LangGraph", "PyTorch", "Voyage"], ["LangGraph", "PyTorch"]),
+    ("AI & ML", "ai", ["LangGraph", "Anthropic", "Voyage"], ["LangGraph", "Voyage"]),
     ("DATA", "data", ["PostgreSQL", "Neo4j", "Redis"], ["PostgreSQL", "Neo4j"]),
     ("CLOUD", "cloud", ["Oracle Cloud", "AWS", "Cloudflare"], ["Oracle Cloud", "Cloudflare"]),
     ("TOOLING", "tooling", ["Docker", "Turborepo", "Playwright"], ["Docker", "Turborepo"]),
 ]
 
-NAME = "DAVE ZACHARY MACARAYO"
-ROLE = "WEB DEVELOPER  ·  AI ENGINEER  ·  PHILIPPINES"
 HUB = "NOVELVERSE"
 HUB_SUB = "Multi-service AI platform"
 HUB_SUB2 = "Next.js  ·  NestJS  ·  FastAPI"
@@ -66,27 +68,16 @@ def route(x0, y0, x_kink, y1, x_end):
             if dy else f'M {x0} {y0} L {x_end} {y1}')
 
 
-def cartouche(c, x, y, w, h):
-    """The map's title plate: a ruled block, the form's own framing device."""
-    return (f'<rect x="{x}" y="{y}" width="{w:.1f}" height="{h}" rx="3" fill="none" '
-            f'stroke="{c["rule"]}" stroke-width="1" opacity="0.32"/>')
-
-
 def build_wide(theme):
     c = THEMES[theme]
-    W, H = 1000, 448
-    row_y = [178 + i * 44 for i in range(6)]
-    hub_y = [233 + i * 22 for i in range(6)]
+    W, H = 1000, 272
+    row_y = [30 + i * 44 for i in range(6)]
+    hub_y = [85 + i * 22 for i in range(6)]
     dots_x = [236, 372, 508]
     x_start, x_kink, x_hub = 164, 600, 782
 
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
          f'width="{W}" height="{H}" fill="none" role="img">']
-
-    plate_w = max(BOLD.width(NAME, 40, -0.02), SEMI.width(ROLE, 13, 0.14)) + 44
-    p.append(cartouche(c, 38, 34, plate_w, 90))
-    p.append(txt(BOLD, NAME, 40, 60, 80, c["ink"], tracking=-0.02, canvas_w=W))
-    p.append(txt(SEMI, ROLE, 13, 62, 108, c["muted"], tracking=0.14, canvas_w=W))
 
     for i, (label, key, stations, _) in enumerate(LINES):
         col, y, hy = c[key], row_y[i], hub_y[i]
@@ -102,32 +93,24 @@ def build_wide(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="7" fill="{c["ink"]}"/>')
-    p.append(txt(BOLD, HUB, 28, 818, 281, c["ink"], tracking=-0.01, canvas_w=W))
-    p.append(txt(REG, HUB_SUB, 13, 820, 305, c["muted"], canvas_w=W))
-    p.append(txt(REG, HUB_SUB2, 12, 820, 324, c["muted"], canvas_w=W))
+    p.append(txt(BOLD, HUB, 28, 818, 133, c["ink"], tracking=-0.01, canvas_w=W))
+    p.append(txt(REG, HUB_SUB, 13, 820, 157, c["muted"], canvas_w=W))
+    p.append(txt(REG, HUB_SUB2, 12, 820, 176, c["muted"], canvas_w=W))
     p.append("</svg>")
     return "\n".join(x for x in p if x)
 
 
 def build_narrow(theme):
     c = THEMES[theme]
-    W, H = 440, 492
-    row_y = [180 + i * 42 for i in range(6)]
-    hub_y = [255 + i * 12 for i in range(6)]
+    W, H = 440, 344
+    row_y = [32 + i * 42 for i in range(6)]
+    hub_y = [107 + i * 12 for i in range(6)]
     # Second label must clear the kink: widest is "Oracle Cloud" at ~66px.
     dots_x = [168, 240]
     x_start, x_kink, x_hub = 120, 292, 374
 
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
          f'width="{W}" height="{H}" fill="none" role="img">']
-
-    plate_w = max(BOLD.width("DAVE ZACHARY", 27, -0.02),
-                  SEMI.width("WEB DEVELOPER  ·  AI ENGINEER", 10.5, 0.13)) + 34
-    p.append(cartouche(c, 20, 26, plate_w, 96))
-    p.append(txt(BOLD, "DAVE ZACHARY", 27, 37, 62, c["ink"], tracking=-0.02, canvas_w=W))
-    p.append(txt(BOLD, "MACARAYO", 27, 37, 92, c["ink"], tracking=-0.02, canvas_w=W))
-    p.append(txt(SEMI, "WEB DEVELOPER  ·  AI ENGINEER", 10.5, 38, 112, c["muted"],
-                 tracking=0.13, canvas_w=W))
 
     for i, (label, key, _, stations) in enumerate(LINES):
         col, y, hy = c[key], row_y[i], hub_y[i]
@@ -143,10 +126,10 @@ def build_narrow(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="6" fill="{c["ink"]}"/>')
-    p.append(txt(BOLD, HUB, 23, 220, 450, c["ink"], tracking=-0.01, anchor="middle",
+    p.append(txt(BOLD, HUB, 23, 220, 302, c["ink"], tracking=-0.01, anchor="middle",
                  canvas_w=W))
-    p.append(txt(REG, HUB_SUB, 11.5, 220, 470, c["muted"], anchor="middle", canvas_w=W))
-    p.append(txt(REG, HUB_SUB2, 10.5, 220, 486, c["muted"], anchor="middle", canvas_w=W))
+    p.append(txt(REG, HUB_SUB, 11.5, 220, 322, c["muted"], anchor="middle", canvas_w=W))
+    p.append(txt(REG, HUB_SUB2, 10.5, 220, 338, c["muted"], anchor="middle", canvas_w=W))
     p.append("</svg>")
     return "\n".join(x for x in p if x)
 
