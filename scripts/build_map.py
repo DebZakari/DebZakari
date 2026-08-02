@@ -125,11 +125,13 @@ def build_wide(theme):
              f'height="{hub_y[-1] - hub_y[0]}" fill="{c["ink"]}"/>')
     for hy in hub_y:
         p.append(f'<circle cx="{x_hub}" cy="{hy}" r="7" fill="{c["ink"]}"/>')
-    # Centred over the wordmark, which is the widest line in the hub block.
-    p.append(mark(818 + (BOLD.width(HUB, 28, -0.01) - 46) / 2, 62, 46, c["ink"]))
+    # The wordmark is the widest line in the hub block, so it sets the axis that
+    # the mark above it and the captions below it are all centred on.
+    hub_cx = 818 + BOLD.width(HUB, 28, -0.01) / 2
+    p.append(mark(hub_cx - 23, 62, 46, c["ink"]))
     p.append(txt(BOLD, HUB, 28, 818, 133, c["ink"], tracking=-0.01, canvas_w=W))
-    p.append(txt(REG, HUB_SUB, 13, 820, 157, c["muted"], canvas_w=W))
-    p.append(txt(REG, HUB_SUB2, 12, 820, 176, c["muted"], canvas_w=W))
+    p.append(txt(REG, HUB_SUB, 13, hub_cx, 157, c["muted"], anchor="middle", canvas_w=W))
+    p.append(txt(REG, HUB_SUB2, 12, hub_cx, 176, c["muted"], anchor="middle", canvas_w=W))
     p.append("</svg>")
     return "\n".join(x for x in p if x)
 

@@ -203,7 +203,7 @@ FULL = [
 ]
 
 
-def picture(dark_src, light_src, alt, extra_dark=None, extra_light=None, width=None):
+def picture(dark_src, light_src, alt, extra_dark=None, extra_light=None, width=None, href=None):
     w = f' width="{width}"' if width else ""
     src = []
     if extra_dark:
@@ -214,7 +214,11 @@ def picture(dark_src, light_src, alt, extra_dark=None, extra_light=None, width=N
                    f'srcset="{extra_light}">')
     src.append(f'  <source media="(prefers-color-scheme: dark)" srcset="{dark_src}">')
     body = "\n".join(src)
-    return (f'<picture>\n{body}\n  <img alt="{alt}" src="{light_src}"{w}>\n</picture>')
+    # A link has to wrap the whole picture: GitHub serves these SVGs through an
+    # <img>, and a browser never activates <a> elements inside an image document,
+    # so there is no way to make only the interchange clickable.
+    tag = f'<picture>\n{body}\n  <img alt="{alt}" src="{light_src}"{w}>\n</picture>'
+    return f'<a href="{href}">\n{tag}\n</a>' if href else tag
 
 
 def stat(url_tpl, alt):
@@ -266,7 +270,7 @@ A("")
 A("## Stack")
 A("")
 A(picture("assets/map-wide-dark.svg", "assets/map-wide-light.svg", ALT,
-          "assets/map-narrow-dark.svg", "assets/map-narrow-light.svg"))
+          "assets/map-narrow-dark.svg", "assets/map-narrow-light.svg", href=NOVELVERSE))
 A("")
 A("Each line is a layer. Colour marks the line, not the vendor. Every station above runs in")
 A("NovelVerse; the rest of what I use is below.")

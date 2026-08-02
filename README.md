@@ -17,12 +17,14 @@ read. Based in the Philippines. [Portfolio](https://debzakari.vercel.app) · ope
 
 ## Stack
 
+<a href="https://novelverse.ink">
 <picture>
   <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="assets/map-narrow-dark.svg">
   <source media="(prefers-color-scheme: light) and (max-width: 600px)" srcset="assets/map-narrow-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/map-wide-dark.svg">
   <img alt="Transit-style diagram of Dave Zachary Macarayo's stack. Six colour-coded lines (Languages, Web, AI & ML, Data, Cloud and Tooling) run left to right and converge on a single interchange labelled NovelVerse, a multi-service AI platform built with Next.js, NestJS and FastAPI." src="assets/map-wide-light.svg">
 </picture>
+</a>
 
 Each line is a layer. Colour marks the line, not the vendor. Every station above runs in
 NovelVerse; the rest of what I use is below.
