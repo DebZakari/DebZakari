@@ -39,16 +39,18 @@ LINGUIST = {
 OTHER = "#8B949E"
 
 
-def gh(path):
+def gh(path, allow_fail=False):
     r = subprocess.run(["gh", "api", path, "--paginate"], capture_output=True, text=True)
     if r.returncode != 0:
+        if allow_fail:
+            return None
         sys.exit(f"gh api {path} failed: {r.stderr.strip()}")
     return r.stdout
 
 
-def collect():
+def collect(listing):
     import re
-    names = [l for l in gh("user/repos?per_page=100&affiliation=owner").splitlines() if l]
+    names = [l for l in listing.splitlines() if l]
     repos = []
     for chunk in names:
         try:
@@ -149,7 +151,18 @@ def panel(langs, repo_count, theme, wide=True):
 
 
 if __name__ == "__main__":
-    totals, repo_count = collect()
+    # /user/repos is the only listing that includes private repositories, and it
+    # needs a user-scoped token. Actions' default GITHUB_TOKEN gets 403 here.
+    # Rebuilding from public repos alone would quietly replace the real
+    # distribution with a worse one, so skip instead.
+    listing = gh("user/repos?per_page=100&affiliation=owner", allow_fail=True)
+    if listing is None:
+        print("::notice::No token that can list private repositories "
+              "(add a PAT with repo scope as the STATS_TOKEN secret). "
+              "Leaving the existing panel unchanged.")
+        sys.exit(0)
+
+    totals, repo_count = collect(listing)
     langs = bucket(totals)
     print("  ".join(f"{n} {p:.1f}%" for n, p in langs))
     for theme in ("dark", "light"):
