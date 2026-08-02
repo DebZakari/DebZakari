@@ -34,17 +34,20 @@ THEME = {
 }
 
 
-def badge(text, colour, style="flat-square"):
+def badge(text, colour, style="flat-square", logo=None):
     # Shields.io splits the path on "-" and reads "_" as a space, so both have to
     # be doubled. Without this, "U-Net" renders as two badges reading "U" "Net".
     esc = text.replace("_", "__").replace("-", "--")
-    return f"https://img.shields.io/badge/{quote(esc, safe='')}-{colour}?style={style}"
+    url = f"https://img.shields.io/badge/{quote(esc, safe='')}-{colour}?style={style}"
+    # White, not the brand hex: the fill already encodes the layer, and a brand
+    # colour here would be the one thing this page refuses to do.
+    return f"{url}&logo={logo}&logoColor=white" if logo else url
 
 
 def bullets(items, key):
     out = []
     for i in items:
-        img = f'<img alt="{i}" src="{badge(i, BULLET[key])}">'
+        img = f'<img alt="{i}" src="{badge(i, BULLET[key], logo=LOGOS.get(i))}">'
         # A few entries are techniques rather than products and have nowhere to
         # point; those stay unlinked rather than inventing a destination.
         out.append(f"[{img}]({LINKS[i]})" if LINKS.get(i) else img)
@@ -54,6 +57,82 @@ def bullets(items, key):
 def line(name, key, items):
     head = f'<img alt="{name} line" src="{badge(name.upper(), BULLET[key], "for-the-badge")}">'
     return f"{head}\n\n{bullets(items, key)}"
+
+
+# Confirmed against the live shields.io service by scripts/../probe. Entries
+# absent here render as plain badges: simple-icons dropped Amazon, Oracle and
+# Java over trademark policy, and techniques like HyDE have no logo to use.
+LOGOS = {
+    'TypeScript': 'typescript',
+    'Python': 'python',
+    'JavaScript': 'javascript',
+    'PHP': 'php',
+    'C': 'c',
+    'Next.js': 'nextdotjs',
+    'React': 'react',
+    'NestJS': 'nestjs',
+    'FastAPI': 'fastapi',
+    'Laravel': 'laravel',
+    'Tailwind CSS': 'tailwindcss',
+    'Node.js': 'nodedotjs',
+    'LangGraph': 'langgraph',
+    'LangChain': 'langchain',
+    'PyTorch': 'pytorch',
+    'TensorFlow': 'tensorflow',
+    'OpenCV': 'opencv',
+    'Hugging Face': 'huggingface',
+    'Ollama': 'ollama',
+    'PostgreSQL': 'postgresql',
+    'pgvector': 'postgresql',
+    'Neo4j': 'neo4j',
+    'Redis': 'redis',
+    'MySQL': 'mysql',
+    'Drizzle ORM': 'drizzle',
+    'Cloudflare': 'cloudflare',
+    'Vercel': 'vercel',
+    'Docker': 'docker',
+    'Caddy': 'caddy',
+    'GitHub Actions': 'githubactions',
+    'Turborepo': 'turborepo',
+    'pnpm': 'pnpm',
+    'Vitest': 'vitest',
+    'Sentry': 'sentry',
+    'Better Auth': 'betterauth',
+    'Socket.IO': 'socketdotio',
+    'TanStack Query': 'tanstack',
+    'shadcn/ui': 'shadcnui',
+    'Radix UI': 'radixui',
+    'Fastify': 'fastify',
+    'Resend': 'resend',
+    'Alpine.js': 'alpinedotjs',
+    'Bootstrap': 'bootstrap',
+    'CodeIgniter': 'codeigniter',
+    'Anthropic': 'anthropic',
+    'Google Gemini': 'googlegemini',
+    'Mistral': 'mistralai',
+    'OpenRouter': 'openrouter',
+    'NVIDIA NIM': 'nvidia',
+    'Workers AI': 'cloudflareworkers',
+    'ElevenLabs': 'elevenlabs',
+    'Fish Audio': 'fishaudio',
+    'YOLO': 'yolo',
+    'Neon': 'neon',
+    'SQLite': 'sqlite',
+    'ltree': 'postgresql',
+    'Cloudflare R2': 'cloudflare',
+    'MinIO': 'minio',
+    'Drizzle Kit': 'drizzle',
+    'Cloudflare Tunnel': 'cloudflare',
+    'Turnstile': 'cloudflare',
+    'GHCR': 'github',
+    'Docker Buildx': 'docker',
+    'ESLint': 'eslint',
+    'pytest': 'pytest',
+    'Ruff': 'ruff',
+    'Dependabot': 'dependabot',
+    'Arduino': 'arduino',
+    'Raspberry Pi': 'raspberrypi',
+}
 
 
 # Every badge that names a product links to that product. Checked for HTTP 200

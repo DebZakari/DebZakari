@@ -128,10 +128,22 @@ def build_wide(theme):
     # The wordmark is the widest line in the hub block, so it sets the axis that
     # the mark above it and the captions below it are all centred on.
     hub_cx = 818 + BOLD.width(HUB, 28, -0.01) / 2
-    p.append(mark(hub_cx - 23, 62, 46, c["ink"]))
-    p.append(txt(BOLD, HUB, 28, 818, 133, c["ink"], tracking=-0.01, canvas_w=W))
-    p.append(txt(REG, HUB_SUB, 13, hub_cx, 157, c["muted"], anchor="middle", canvas_w=W))
-    p.append(txt(REG, HUB_SUB2, 12, hub_cx, 176, c["muted"], anchor="middle", canvas_w=W))
+
+    # Vertical: centre the block's inked extent on the interchange bar, so it
+    # reads as attached to the bar rather than floating above it. Offsets are
+    # measured from the top of the mark's box.
+    mark_px = 46
+    to_word, to_sub1, to_sub2 = 71, 95, 114
+    ink_top = mark_px * 121 / MARK_VIEWBOX      # the artwork is inset in its box
+    ink_bottom = to_sub2 + 3                    # last caption's descender
+    top = (hub_y[0] + hub_y[-1]) / 2 - (ink_top + ink_bottom) / 2
+
+    p.append(mark(hub_cx - mark_px / 2, top, mark_px, c["ink"]))
+    p.append(txt(BOLD, HUB, 28, 818, top + to_word, c["ink"], tracking=-0.01, canvas_w=W))
+    p.append(txt(REG, HUB_SUB, 13, hub_cx, top + to_sub1, c["muted"], anchor="middle",
+                 canvas_w=W))
+    p.append(txt(REG, HUB_SUB2, 12, hub_cx, top + to_sub2, c["muted"], anchor="middle",
+                 canvas_w=W))
     p.append("</svg>")
     return "\n".join(x for x in p if x)
 

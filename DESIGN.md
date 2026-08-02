@@ -130,14 +130,24 @@ narrow label ("Oracle Cloud", 63.4px) is 20.3px.
 2. **Every station is a factual claim.** See the interchange note above.
 3. **Transparent ground.** Every generated SVG omits a background so it sits on
    GitHub's own canvas in light, dark, and dimmed.
-4. **No vendor logos on badges.** Checked against the simple-icons catalog:
-   Oracle Cloud, AWS, OpenAI, Playwright, Groq, Cohere, Jina, Infisical, Tiptap,
-   Zustand, Voyage, Cartesia and Speechmatics have no entries. A logo set that
-   omits the two the stack most needs to show is worse than none, so the badges
-   carry none. The single exception is the NovelVerse mark at the interchange,
-   which is Dave's own work rather than a third-party brand, and is drawn in ink
-   for the same reason the interchange is: it belongs to all six lines, and the
-   brand violet is already spoken for by AI & ML.
+4. **Logos are best-effort and always white.** 69 of 106 badges carry a
+   simple-icons logo; the rest render bare. simple-icons dropped Amazon, Oracle
+   and Java over trademark policy, and Playwright, Infisical, OpenAI, Groq,
+   Cohere, Voyage, Cartesia and Speechmatics have no entry, so a complete set is
+   not available at any effort. Every slug is confirmed against the live
+   shields.io service, never against a vendored catalog, because that catalog
+   moves. `logoColor` is always `white`: the fill already encodes the layer, and
+   a brand-coloured logo would be the one thing this page refuses to do.
+
+   Where an entry is a feature of a larger product, the parent's logo is
+   accurate and used: pgvector and ltree take PostgreSQL, Drizzle Kit takes
+   Drizzle, R2 and Tunnel and Turnstile take Cloudflare, GHCR takes GitHub,
+   Buildx takes Docker.
+
+   The NovelVerse mark at the interchange is separate from all of this. It is
+   Dave's own work rather than a third-party brand, and is drawn in ink for the
+   same reason the interchange is: it belongs to all six lines, and the brand
+   violet is already spoken for by AI & ML.
 5. **Badge text must escape `-` and `_`.** Shields.io splits its path on `-` and
    reads `_` as a space. Unescaped, "U-Net" renders as two badges reading "U"
    and "Net". `badge()` doubles both.
